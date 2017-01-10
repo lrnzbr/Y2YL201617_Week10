@@ -1,3 +1,6 @@
+{% extends "layout.html" %}
+{% block title %}Inventory{% endblock %}
+{% block body %}
 <!---SHOW All items-->
 {% if items==[]%}
 <p> There are currently no items in the catalog. </p>
@@ -13,5 +16,4 @@
 </div>
 
 {% endif %}
-
-
+{% endblock %}

@@ -1,4 +1,6 @@
-<h1> Shopping Cart for {{shoppingCart.customer.name}} </h1>
+{% extends "layout.html" %}
+{% block title %}Shopping Cart for {{shoppingCart.customer.name}}{% endblock %}
+{% block body %}
 
 {%if shoppingCart.products == []%}
 <p> There are no items in your shopping cart.</p>
@@ -26,3 +28,4 @@
 {% endif %}
 
 <a href={{ url_for('inventory')}}>Home</a>
+{% endblock %}

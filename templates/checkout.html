@@ -1,4 +1,6 @@
-
+{% extends "layout.html" %}
+{% block title %}Checkout{% endblock %}
+{% block body %}
 <h1> Are you ready to check out, {{shoppingCart.customer.name}}? </h1>
 
 {%if shoppingCart.products == []%}
@@ -23,4 +25,4 @@
 </form>
 
 {% endif %}
-
+{% endblock %}
