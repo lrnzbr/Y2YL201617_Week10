@@ -73,7 +73,7 @@ class Product(Base):
     name = Column(String)
     description = Column(String)
     photo = Column(String)
-    price = Column(String)
+    price = Column(Float)
     #inventory = relationship("Inventory", uselist=False, back_populates="product")
     orders = relationship("OrdersAssociation", back_populates="product")
     shoppingCarts = relationship("ShoppingCartAssociation", back_populates="product")
