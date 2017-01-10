@@ -2,7 +2,7 @@
 {% block title %}New Customer{% endblock %}
 
 {% block body %}
-<form action="{{ url_for('newCustomer') }}" method = 'post'>
+<form action="{{ url_for('newCustomer') }}" method = 'post' enctype=multipart/form-data>
   Name:<br>
   <input type="text" name="name"><br>
   Email Address:<br>
@@ -10,7 +10,8 @@
   Mailing Address:<br>
   <input type="text" name="address"><br>
   Password:<br>
-  <input type="password" name="password">
-   <input type="submit" value="Create Account">
+  <input type="password" name="password"><br>
+	<input type=file name=file><br>
+  <input type="submit" value="Create Account">
 </form>
 {% endblock %}

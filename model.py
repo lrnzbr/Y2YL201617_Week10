@@ -25,11 +25,15 @@ class Customer(Base):
     address = Column(String(255))
     email = Column(String(255), unique=True)
     shoppingCart = relationship("ShoppingCart", uselist=False, back_populates="customer")
+    photo = Column(String(255), unique=True)
     password_hash = Column(String(255))
     orders = relationship("Order", back_populates="customer")
 
     def hash_password(self, password):
         self.password_hash = pwd_context.encrypt(password)
+
+    def set_photo(self, photo):
+        self.photo = photo
 
     def verify_password(self, password):
         return pwd_context.verify(password, self.password_hash)
