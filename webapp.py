@@ -1,8 +1,10 @@
-from flask import Flask, render_template, url_for, flash, redirect, request, g, send_from_directory
+from flask import Flask, url_for, flash, render_template, redirect, request, g, send_from_directory
 from flask import session as login_session
 from model import *
 from werkzeug.utils import secure_filename
 import locale, os
+# from werkzeug.contrib.fixers import ProxyFix
+# from flask_dance.contrib.github import make_github_blueprint, github
 
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
@@ -10,6 +12,12 @@ ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 app = Flask(__name__)
 app.secret_key = "MY_SUPER_SECRET_KEY"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+# app.wsgi_app = ProxyFix(app.wsgi_app)
+# blueprint = make_github_blueprint(
+#     client_id="TODO",
+#     client_secret="TODO",
+# )
+# app.register_blueprint(blueprint, url_prefix="/login")
 
 engine = create_engine('sqlite:///fizzBuzz.db')
 Base.metadata.bind = engine
@@ -33,6 +41,14 @@ def verify_password(email, password):
 	g.customer = customer
 	return True
 
+# @app.route('/')
+# def index():
+#     if not github.authorized:
+#         return redirect(url_for("github.login"))
+#     resp = github.get("/user")
+#     assert resp.ok
+#     return "You are @{login} on GitHub".format(login=resp.json()["login"])
+
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
 	if request.method == 'GET':
@@ -42,7 +58,7 @@ def login():
 		password = request.form['password']
 		if email is None or password is None:
 			flash('Missing Arguments')
-			return redirect(url_for(login))
+			return redirect(url_for('login'))
 		if verify_password(email, password):
 			customer = session.query(Customer).filter_by(email=email).one()
 			flash('Login Successful, welcome, %s' % customer.name)
